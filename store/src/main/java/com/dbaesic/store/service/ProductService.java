@@ -1,5 +1,6 @@
 package com.dbaesic.store.service;
 
+import com.dbaesic.store.DTO.ProductAndImageDTO;
 import com.dbaesic.store.entity.*;
 import com.dbaesic.store.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,5 +85,14 @@ public class ProductService {
      */
     public List<ProductSizeMapping> getAllProductSizeMappings(){
         return productSizeMappingRepository.findAll();
+    }
+
+    /**
+     * Retrieves all product information WITH their images.
+     *
+     * @return List of row in the data.
+     */
+    public List<Object[]> getAllProductsAndImages() {
+        return productRepository.findAllProductsAndImages();
     }
 }

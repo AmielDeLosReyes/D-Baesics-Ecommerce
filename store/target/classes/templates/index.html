@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 
 <head>
   <title>D'baesic - Home</title>
@@ -169,16 +169,20 @@
                 <section id="ttfeatured" class="ttfeatured-products">
                   <div class="ttfeatured-content products grid owl-carousel" id="owl1">
                     <!-- First Product -->
-                    <div class="product-layouts">
-                      <div class="product-thumb">
+                    <!-- Loop through the products of the store -->
+                    <div th:each="product : ${products}" class="product-layouts">
+                    <div class="product-thumb">
                         <div class="image fade-hover">
-                          <a href="product-details.html">
-                            <img src="img/products/product1/black/b1.png" alt="07" />
-                            <img src="img/products/product1/black/b2.png" alt="08" class="second_image img-responsive" />
+                          <a th:href="'product-details.html?id=' + ${product[0]}">
+                            <img th:each="index : ${#numbers.sequence(0, 1)}"
+                                 th:src="${#strings.arraySplit(product[4], ',')[index]}"
+                                 th:alt="${product[1]}"
+                                 th:classappend="${index == 1 ? 'second_image img-responsive' : ''}" />
+
                           </a>
                           <div class="button-wrapper">
                             <div class="button-group text-center">
-                              <button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal" disabled="disabled">
+                              <button type="button" class="btn btn-primary btn-cart" data-target="#cart-pop" data-toggle="modal">
                                 <i class="material-icons">shopping_cart</i>
                                 <span>Add to cart</span>
                               </button>
@@ -200,17 +204,18 @@
                         <div class="thumb-description">
                           <div class="caption">
                             <h4 class="product-title text-capitalize">
-                              <a href="product-details.html">similique suntin culpaqui</a>
+                              <a th:href="@{/product-details/{productId}(productId=${product[0]})}"
+                                 th:text="${product[1]}">Product Name</a>
                             </h4>
                           </div>
                           <div class="price">
-                            <div class="regular-price">$100.00</div>
-                            <div class="old-price">$150.00</div>
+                            <div class="regular-price" th:text="${product[3]}"></div>
+                            <div class="old-price" th:text="${product[2]}"></div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <!-- end -->
+                    <!-- end of products-->
                   </div>
                 </section>
               </div>
@@ -281,8 +286,7 @@
           </div>
         </div>
       </div>
-      <!-- <div id="ttsmartblog" class="my-40 my-sm-25 bottom-to-top hb-animate-element"><div class="tt-title d-inline-block float-none w-100 text-center text-capitalize">latest news</div><div class="container"><div class="row"><div class="smartblog-content owl-carousel"><div class="ttblog"><div class="item"><div class="ttblog_image_holder"><a href="#"><img src="img/banner/blog-01.jpg" alt="blog-01"></a><span class="blogicons"><a title="Click to view Full Image" href="img/banner/blog-01.jpg" data-lightbox="example-set" class="icon zoom"><i class="material-icons">search</i></a></span></div><div class="blog-content-wrap float-left w-100"><div class="blog_inner"><h4 class="blog-title"><span>Share the Love</span></h4><div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><div class="read-more text-capitalize"><a title="Click to view Read More" class="readmore">read more</a></div></div></div></div></div><div class="ttblog"><div class="item"><div class="ttblog_image_holder"><a href="#"><img src="img/banner/blog-02.jpg" alt="blog-02"></a><span class="blogicons"><a title="Click to view Full Image" href="img/banner/blog-02.jpg" data-lightbox="example-set" class="icon zoom"><i class="material-icons">search</i></a></span></div><div class="blog-content-wrap float-left w-100"><div class="blog_inner"><h4 class="blog-title"><span>Upon of seasons earth</span></h4><div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><div class="read-more text-capitalize"><a title="Click to view Read More" class="readmore">read more</a></div></div></div></div></div><div class="ttblog"><div class="item"><div class="ttblog_image_holder"><a href="#"><img src="img/banner/blog-03.jpg" alt="blog-03"></a><span class="blogicons"><a title="Click to view Full Image" href="img/banner/blog-03.jpg" data-lightbox="example-set" class="icon zoom"><i class="material-icons">search</i></a></span></div><div class="blog-content-wrap float-left w-100"><div class="blog_inner"><h4 class="blog-title"><span>From Now we are certified web</span></h4><div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><div class="read-more text-capitalize"><a title="Click to view Read More" class="readmore">read more</a></div></div></div></div></div><div class="ttblog"><div class="item"><div class="ttblog_image_holder"><a href="#"><img src="img/banner/blog-04.jpg" alt="blog-04"></a><span class="blogicons"><a title="Click to view Full Image" href="img/banner/blog-04.jpg" data-lightbox="example-set" class="icon zoom"><i class="material-icons">search</i></a></span></div><div class="blog-content-wrap float-left w-100"><div class="blog_inner"><h4 class="blog-title"><span>Viderer voluptatum te eum</span></h4><div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><div class="read-more text-capitalize"><a title="Click to view Read More" class="readmore">read more</a></div></div></div></div></div><div class="ttblog"><div class="item"><div class="ttblog_image_holder"><a href="#"><img src="img/banner/blog-05.jpg" alt="blog-05"></a><span class="blogicons"><a title="Click to view Full Image" href="img/banner/blog-05.jpg" data-lightbox="example-set" class="icon zoom"><i class="material-icons">search</i></a></span></div><div class="blog-content-wrap float-left w-100"><div class="blog_inner"><h4 class="blog-title"><span>Share the Love</span></h4><div class="blog-desc">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</div><div class="read-more text-capitalize"><a title="Click to view Read More" class="readmore">read more</a></div></div></div></div></div></div></div></div></div> -->
-      <!-- <div id="ttbrandlogo" class="my-40 my-sm-25 bottom-to-top hb-animate-element"><div class="container"><div class="tt-brand owl-carousel"><div class="item"><a href="#"><img src="img/logos/brand-logo-01.png" alt="brand-logo-01"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-02.png" alt="brand-logo-02"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-03.png" alt="brand-logo-03"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-04.png" alt="brand-logo-04"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-05.png" alt="brand-logo-05"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-06.png" alt="brand-logo-06"></a></div><div class="item"><a href="#"><img src="img/logos/brand-logo-07.png" alt="brand-logo-07"></a></div></div></div></div> -->
+
     </div>
   </div>
 </main>
