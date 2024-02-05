@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Service class for handling business logic related to products.
+ *
+ * @author Amiel De Los Reyes
  */
 @Service
 public class ProductService {

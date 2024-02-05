@@ -13,6 +13,8 @@ import java.util.List;
 
 /**
  * REST Controller for handling product-related endpoints.
+ *
+ * @author Amiel De Los Reyes
  */
 @RestController
 @RequestMapping("/api/products")

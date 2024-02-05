@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 
 /**
  * Entity class representing a product size.
+ *
+ * @author Amiel De Los Reyes
  */
 @Entity
 @Table(name = "product_size")
 public class ProductSize {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "size_id")
@@ -18,13 +21,24 @@ public class ProductSize {
 
     // Constructors, getters, setters, and other methods
 
+    /**
+     * Default constructor.
+     */
     public ProductSize() {
     }
 
+    /**
+     * Parameterized constructor to initialize the product size entity with details.
+     *
+     * @param sizeId   The unique identifier of the product size.
+     * @param sizeName The name of the product size.
+     */
     public ProductSize(int sizeId, String sizeName) {
         this.sizeId = sizeId;
         this.sizeName = sizeName;
     }
+
+    // Getters and setters
 
     public int getSizeId() {
         return sizeId;
@@ -42,4 +56,3 @@ public class ProductSize {
         this.sizeName = sizeName;
     }
 }
-

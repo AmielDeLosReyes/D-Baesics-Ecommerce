@@ -5,6 +5,8 @@ import java.util.Objects;
 
 /**
  * Composite key class representing the ID of a ProductSizeMapping entity.
+ *
+ * @author Amiel De Los Reyes
  */
 public class ProductSizeMappingId implements Serializable {
 

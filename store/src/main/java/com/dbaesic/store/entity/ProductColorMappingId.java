@@ -5,6 +5,8 @@ import java.util.Objects;
 
 /**
  * Composite key class representing the ID of a ProductColorMapping entity.
+ *
+ * @author Amiel De Los Reyes
  */
 public class ProductColorMappingId implements Serializable {
 

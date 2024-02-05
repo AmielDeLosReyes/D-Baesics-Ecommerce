@@ -4,10 +4,13 @@ import jakarta.persistence.*;
 
 /**
  * Entity class representing a product image.
+ *
+ * @author Amiel De Los Reyes
  */
 @Entity
 @Table(name = "product_image")
 public class ProductImage {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
@@ -21,14 +24,26 @@ public class ProductImage {
 
     // Constructors, getters, setters, and other methods
 
+    /**
+     * Default constructor.
+     */
     public ProductImage() {
     }
 
+    /**
+     * Parameterized constructor to initialize the product image entity with details.
+     *
+     * @param imageId   The unique identifier of the product image.
+     * @param productId The unique identifier of the associated product.
+     * @param imageUrl  The URL of the product image.
+     */
     public ProductImage(int imageId, int productId, String imageUrl) {
         this.imageId = imageId;
         this.productId = productId;
         this.imageUrl = imageUrl;
     }
+
+    // Getters and setters
 
     public int getImageId() {
         return imageId;
@@ -54,4 +69,3 @@ public class ProductImage {
         this.imageUrl = imageUrl;
     }
 }
-

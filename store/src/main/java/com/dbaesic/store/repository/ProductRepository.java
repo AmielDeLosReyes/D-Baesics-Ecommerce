@@ -10,6 +10,8 @@ import java.util.List;
 /**
  * JPA repository interface for Product entities.
  * Extends JpaRepository to inherit basic CRUD operations.
+ *
+ * @author Amiel De Los Reyes
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 

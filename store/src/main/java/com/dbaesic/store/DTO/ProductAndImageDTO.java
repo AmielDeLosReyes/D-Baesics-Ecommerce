@@ -2,6 +2,12 @@ package com.dbaesic.store.DTO;
 
 import java.util.List;
 
+/**
+ * Data Transfer Object (DTO) representing product information along with image URLs.
+ * This class is used to transfer product details between layers of the application.
+ *
+ * @author Amiel De Los Reyes
+ */
 public class ProductAndImageDTO {
 
     private int productId;
@@ -11,17 +17,33 @@ public class ProductAndImageDTO {
     private String productDescription;
     private List<String> imageUrls;
 
+    /**
+     * Default constructor.
+     */
     public ProductAndImageDTO() {
     }
 
+    /**
+     * Parameterized constructor to initialize the DTO with product details.
+     *
+     * @param productId         The unique identifier of the product.
+     * @param productName       The name of the product.
+     * @param oldPrice          The old price of the product.
+     * @param currentPrice      The current price of the product.
+     * @param productDescription The description of the product.
+     * @param imageUrls         A comma-separated string of image URLs.
+     */
     public ProductAndImageDTO(int productId, String productName, int oldPrice, int currentPrice, String productDescription, String imageUrls) {
         this.productId = productId;
         this.productName = productName;
         this.oldPrice = oldPrice;
         this.currentPrice = currentPrice;
         this.productDescription = productDescription;
+        // Split the comma-separated string into a List of image URLs
         this.imageUrls = List.of(imageUrls.split(","));
     }
+
+    // Getters and setters
 
     public int getProductId() {
         return productId;
