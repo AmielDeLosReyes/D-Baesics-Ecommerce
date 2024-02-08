@@ -500,27 +500,18 @@
                   <!-- Add your size options here -->
                   <select class="form-control" name="select">
                     <option value="" selected="">Size</option>
-                    <option value="black">Medium</option>
-                    <option value="white">Large</option>
-                    <option value="gold">Small</option>
-                    <option value="rose gold">Extra large</option>
+                    <option th:each="size : ${productColorAndSizes}" th:if="${size[0] == product[0]}" th:value="${size[3]}" th:text="${size[3]}"></option>
+
                   </select>
                 </div>
 
                 <div class="color-option d-flex align-items-center">
                   <h5>Color:</h5>
                   <!-- Add your color options here -->
-
                   <ul class="color-categories">
-                    <li class="active">
-                      <a class="tt-cofeebrown" title="Coffee Brown"></a>
+                    <li th:each="color : ${productColorAndSizes}" th:if="${color[0] == product[0]}">
+                      <a th:class="'tt-' + ${color[2]}" th:title="${color[2]}"></a>
                     </li>
-                    <!-- <li>
-                      <a class="tt-blue" href="#" title="Blue"></a>
-                    </li>
-                    <li>
-                      <a class="tt-yellow" href="#" title="Yellow"></a>
-                    </li> -->
                   </ul>
                 </div>
               </div>

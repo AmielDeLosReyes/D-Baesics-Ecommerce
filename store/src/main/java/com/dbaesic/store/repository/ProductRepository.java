@@ -15,6 +15,12 @@ import java.util.List;
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
+    /**
+     * Custom query to retrieve all products along with their images.
+     * Uses a native SQL query to fetch product information and concatenate image URLs.
+     *
+     * @return List of Object arrays containing product information and concatenated image URLs.
+     */
     @Query(value = "SELECT p.product_id, p.product_name, p.old_price, p.current_price, GROUP_CONCAT(pi.image_url) AS image_urls, p.product_description " +
             "FROM dbaesic.product p " +
             "JOIN dbaesic.product_image pi ON p.product_id = pi.product_id " +
@@ -22,6 +28,12 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "LIMIT 0, 1000", nativeQuery = true)
     List<Object[]> findAllProductsAndImages();
 
+    /**
+     * Custom query to retrieve all product colors and sizes.
+     * Uses a native SQL query to fetch product ID, product name, color name, and size name.
+     *
+     * @return List of Object arrays containing product ID, product name, color name, and size name.
+     */
     @Query(value = "SELECT p.product_id, p.product_name, pc.color_name, ps.size_name " +
             "FROM dbaesic.product p " +
             "JOIN dbaesic.product_image pi ON p.product_id = pi.product_id " +
@@ -32,6 +44,4 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
             "GROUP BY p.product_id, p.product_name, pc.color_name, ps.size_name " +
             "LIMIT 0, 1000", nativeQuery = true)
     List<Object[]> findAllProductColorAndSizes();
-
-
 }

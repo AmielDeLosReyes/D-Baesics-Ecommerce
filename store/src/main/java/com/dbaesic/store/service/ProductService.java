@@ -97,4 +97,14 @@ public class ProductService {
     public List<Object[]> getAllProductsAndImages() {
         return productRepository.findAllProductsAndImages();
     }
+
+    /**
+     * Retrieves all product colors and sizes from the database.
+     * Delegates the call to the ProductRepository's findAllProductColorAndSizes method.
+     *
+     * @return List of Object arrays containing product ID, product name, color name, and size name.
+     */
+    public List<Object[]> getAllProductColorAndSizes() {
+        return productRepository.findAllProductColorAndSizes();
+    }
 }
