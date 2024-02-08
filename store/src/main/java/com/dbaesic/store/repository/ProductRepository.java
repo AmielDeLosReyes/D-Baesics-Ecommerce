@@ -15,7 +15,7 @@ import java.util.List;
  */
 public interface ProductRepository extends JpaRepository<Product, Integer> {
 
-    @Query(value = "SELECT p.product_id, p.product_name, p.old_price, p.current_price, GROUP_CONCAT(pi.image_url) AS image_urls " +
+    @Query(value = "SELECT p.product_id, p.product_name, p.old_price, p.current_price, GROUP_CONCAT(pi.image_url) AS image_urls, p.product_description " +
             "FROM dbaesic.product p " +
             "JOIN dbaesic.product_image pi ON p.product_id = pi.product_id " +
             "GROUP BY p.product_id, p.product_name, p.old_price, p.current_price " +

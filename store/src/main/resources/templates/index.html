@@ -170,7 +170,7 @@
                   <div class="ttfeatured-content products grid owl-carousel" id="owl1">
                     <!-- First Product -->
                     <!-- Loop through the products of the store -->
-                    <div th:each="product : ${products}" class="product-layouts">
+                    <div th:each="product, productIndex : ${products}" class="product-layouts">
                     <div class="product-thumb">
                         <div class="image fade-hover">
                           <a th:href="'product-details.html?id=' + ${product[0]}">
@@ -194,7 +194,7 @@
                                 <i class="material-icons">equalizer</i>
                                 <span>Compare</span>
                               </button>
-                              <button type="button" class="btn btn-primary btn-quickview" data-toggle="modal" data-target="#product_view">
+                              <button type="button" class="btn btn-primary btn-quickview" data-toggle="modal" data-target="'#product_view' + ${productIndex.index}">
                                 <i class="material-icons">visibility</i>
                                 <span>Quick View</span>
                               </button>
