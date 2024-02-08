@@ -170,7 +170,7 @@
                   <div class="ttfeatured-content products grid owl-carousel" id="owl1">
                     <!-- First Product -->
                     <!-- Loop through the products of the store -->
-                    <div th:each="product, productIndex : ${products}" class="product-layouts">
+                    <div th:each="product : ${products}" class="product-layouts">
                     <div class="product-thumb">
                         <div class="image fade-hover">
                           <a th:href="'product-details.html?id=' + ${product[0]}">
@@ -194,7 +194,7 @@
                                 <i class="material-icons">equalizer</i>
                                 <span>Compare</span>
                               </button>
-                              <button type="button" class="btn btn-primary btn-quickview" data-toggle="modal" data-target="'#product_view' + ${productIndex.index}">
+                              <button type="button" class="btn btn-primary btn-quickview" data-toggle="modal" th:data-target="'#product_view' + ${product[0]}">
                                 <i class="material-icons">visibility</i>
                                 <span>Quick View</span>
                               </button>
@@ -439,120 +439,99 @@
     </div>
   </div>
 </div>
-<!-- product_view modal-->
-<div class="modal fade product_view" id="product_view" tabindex="-1" role="dialog" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title w-100w-100w-100 font-weight-bold d-none">Quick view</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">×</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <div class="row">
-          <div class="col-md-6 left-columm">
-            <div class="product-large-image tab-content">
-              <div class="tab-pane active" id="product-1" role="tabpanel" aria-labelledby="product-tab-1">
-                <div class="single-img img-full">
-                  <a href="img/products/p1.png">
-                    <img src="img/products/p1.png" class="img-fluid" alt="">
-                  </a>
+<!-- Loop through each product -->
+<!-- Loop through each product -->
+<div th:each="product : ${products}">
+  <!-- product_view modal-->
+  <div class="modal fade product_view" th:id="'product_view' + ${product[0]}" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title w-100 font-weight-bold d-none" th:text="${product[1]}">Quick view</h4>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <!-- Product Images -->
+            <div class="col-md-6 left-columm">
+              <div class="product-large-image tab-content">
+                <!-- Iterate over product images -->
+                <div th:each="image, imageIndex : ${#strings.arraySplit(product[4], ',')}" class="tab-pane"
+                     th:id="'product-' + ${imageIndex.index}" role="tabpanel"
+                     th:classappend="${imageIndex.index == 0 ? 'active' : ''}">
+                  <div class="single-img img-full">
+                    <a th:href="${image}" target="_blank">
+                      <img th:src="${image}" class="img-fluid" alt="" />
+                    </a>
+                  </div>
                 </div>
               </div>
-              <div class="tab-pane" id="product-2" role="tabpanel" aria-labelledby="product-tab-2">
-                <div class="single-img">
-                  <a href="img/products/p1.2.png">
-                    <img src="img/products/p1.2.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-              </div>
-              <div class="tab-pane" id="product-3" role="tabpanel" aria-labelledby="product-tab-3">
-                <div class="single-img">
-                  <a href="img/products/p1.3.png">
-                    <img src="img/products/p1.3.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-              </div>
-              <div class="tab-pane" id="product-4" role="tabpanel" aria-labelledby="product-tab-4">
-                <div class="single-img">
-                  <a href="img/products/p1.02.png">
-                    <img src="img/products/p1.02.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-              </div>
-              <div class="tab-pane" id="product-5" role="tabpanel" aria-labelledby="product-tab-4">
-                <div class="single-img">
-                  <a href="img/products/p1.1.png">
-                    <img src="img/products/p1.1.png" class="img-fluid" alt="">
-                  </a>
+              <!-- Small Image List -->
+              <div class="small-image-list float-left w-100">
+                <div class="nav-add small-image-slider-single-product-tabstyle-3 owl-carousel" role="tablist">
+                  <!-- Iterate over product images for small images -->
+                  <div th:each="image, imageIndex : ${#strings.arraySplit(product[4], ',')}"
+                       class="single-small-image img-full">
+                    <a data-toggle="tab" th:id="'product-tab-' + ${imageIndex.index}"
+                       th:href="'#product-' + ${imageIndex.index}" class="img"
+                       th:classappend="${imageIndex.index == 0 ? 'active' : ''}">
+                      <img th:src="${image}" class="img-fluid" alt="" />
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="small-image-list float-left w-100">
-              <div class="nav-add small-image-slider-single-product-tabstyle-3 owl-carousel" role="tablist">
-                <div class="single-small-image img-full">
-                  <a data-toggle="tab" id="product-tab-1" href="#product-1" class="img active">
-                    <img src="img/products/p1.png" class="img-fluid" alt="">
-                  </a>
+            <!-- Product Content -->
+            <div class="col-md-6 product_content">
+              <h4 class="product-title text-capitalize" th:text="${product[1]}">Product Name</h4>
+              <span class="description float-left w-100" th:text="${product[5]}">Product Description</span>
+              <h3 class="price float-left w-100">
+                <span class="regular-price align-middle" th:text="'₱' + ${product[3]}">Price</span>
+                <span class="old-price align-middle" th:text="'₱' + ${product[2]}">Old Price</span>
+              </h3>
+              <!-- Other Product Details -->
+
+              <!-- Add product variants here -->
+              <div class="product-variants float-left w-100">
+                <div class="col-md-4 col-sm-6 col-xs-12 size-options d-flex align-items-center">
+                  <h5>Size:</h5>
+                  <!-- Add your size options here -->
+                  <select class="form-control" name="select">
+                    <option value="" selected="">Size</option>
+                    <option value="black">Medium</option>
+                    <option value="white">Large</option>
+                    <option value="gold">Small</option>
+                    <option value="rose gold">Extra large</option>
+                  </select>
                 </div>
-                <div class="single-small-image img-full">
-                  <a data-toggle="tab" id="product-tab-2" href="#product-2" class="img">
-                    <img src="img/products/p1.2.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="single-small-image img-full">
-                  <a data-toggle="tab" id="product-tab-3" href="#product-3" class="img">
-                    <img src="img/products/p1.02.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="single-small-image img-full">
-                  <a data-toggle="tab" id="product-tab-4" href="#product-4" class="img">
-                    <img src="img/products/p1.3.png" class="img-fluid" alt="">
-                  </a>
-                </div>
-                <div class="single-small-image img-full">
-                  <a data-toggle="tab" id="product-tab-4" href="#product-5" class="img">
-                    <img src="img/products/p1.1.png" class="img-fluid" alt="">
-                  </a>
+
+                <div class="color-option d-flex align-items-center">
+                  <h5>Color:</h5>
+                  <!-- Add your color options here -->
+
+                  <ul class="color-categories">
+                    <li class="active">
+                      <a class="tt-cofeebrown" title="Coffee Brown"></a>
+                    </li>
+                    <!-- <li>
+                      <a class="tt-blue" href="#" title="Blue"></a>
+                    </li>
+                    <li>
+                      <a class="tt-yellow" href="#" title="Yellow"></a>
+                    </li> -->
+                  </ul>
                 </div>
               </div>
-            </div>
-          </div>
-          <!-- Eyes Item Description -->
-          <div class="col-md-6 product_content">
-            <h4 class="product-title text-capitalize">Self Tie Criss Cross Corset Bandana Halter Crop Top Double Lining</h4>
-            <span class="description float-left w-100">Make a bold statement with our Self Tie Criss Cross Corset Bandana Halter Crop Top. Featuring a unique design with a stylish criss-cross corset and a self-tie bandana detail, this double-lined crop top adds a touch of edgy flair to your wardrobe. Embrace a trendy and confident look that seamlessly combines comfort with fashion-forward style.</span>
-            <h3 class="price float-left w-100">
-              <span class="regular-price align-middle">&#8369; 159</span>
-              <span class="old-price align-middle">&#8369;199</span>
-            </h3>
-            <div class="product-variants float-left w-100">
-              <div class="col-md-4 col-sm-6 col-xs-12 size-options d-flex align-items-center">
-                <h5>Size:</h5>
-                <select class="form-control" name="select">
-                  <option value="" selected="">Size</option>
-                  <option value="black">Medium</option>
-                  <option value="white">Large</option>
-                  <option value="gold">Small</option>
-                  <option value="rose gold">Extra large</option>
-                </select>
+
+              <div class="btn-cart d-flex align-items-center float-left w-100">
+                <h5>Quantity:</h5>
+                <input value="1" type="number">
+                <button type="button" class="btn btn-primary">
+                  <i class="material-icons">shopping_cart</i> Buy Now
+                </button>
               </div>
-              <div class="color-option d-flex align-items-center">
-                <h5>color :</h5>
-                <ul class="color-categories">
-                  <li class="active">
-                    <a class="tt-cofeebrown" title="Coffee Brown"></a>
-                  </li>
-                  <!-- <li><a class="tt-blue" href="#" title="Blue"></a></li><li><a class="tt-yellow" href="#" title="Yellow"></a></li> -->
-                </ul>
-              </div>
-            </div>
-            <div class="btn-cart d-flex align-items-center float-left w-100">
-              <h5>qty:</h5>
-              <input value="1" type="number">
-              <button type="button" class="btn btn-primary" onclick="window.open('https://shopee.ph/product/147082351/18784943090?d_id=2c3b7&fbclid=IwAR33jbKQStD_zzIANZp9CvGQQaEw0N2dUXOm_FVDuRM8gC9LLPwRXLTap08', '_blank')">
-                <i class="material-icons">shopping_cart</i> Buy Now </button>
             </div>
           </div>
         </div>
@@ -560,6 +539,7 @@
     </div>
   </div>
 </div>
+
 
 <!-- end -->
 <!-- cart-pop modal -->
